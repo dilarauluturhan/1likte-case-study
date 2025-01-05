@@ -7,6 +7,8 @@ import CustomBox from "@/components/CustomBox";
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const [languageMenuOpen, setLanguageMenuOpen] = useState<boolean>(false);
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("Türkçe");
 
   const boxes = [
     {
@@ -106,13 +108,43 @@ export default function Home() {
             <p className="text-lg font-thin"> | Eğitim</p>
           </div>
           <div className="hidden lg:flex items-center justify-center space-x-12">
-            <div className="flex items-center justify-center space-x-2">
-              <img src="/icons/earth.svg" alt="Earth" />
-              <p className="text-md">Türkçe</p>
-              <img src="/icons/down.svg" alt="Down" />
+            <div className="relative">
+              <button
+                onClick={() => setLanguageMenuOpen(!languageMenuOpen)}
+                className="flex items-center justify-center space-x-2"
+              >
+                <img src="/icons/earth.svg" alt="Earth" />
+                <p className="text-md">{selectedLanguage}</p>
+                <img src="/icons/down.svg" alt="Down" />
+              </button>
+
+              {/* Dil menüsü */}
+              {languageMenuOpen && (
+                <div className="absolute top-8 left-0 bg-white rounded-lg shadow-md w-28 p-2 z-50">
+                  <button
+                    className="block w-full text-center text-black hover:text-white px-4 py-2 hover:bg-[#6B7280] hover:rounded-lg"
+                    onClick={() => {
+                      setSelectedLanguage("Türkçe");
+                      setLanguageMenuOpen(false);
+                    }}
+                  >
+                    Türkçe
+                  </button>
+                  <button
+                    className="block w-full text-center text-black hover:text-white px-4 py-2 hover:bg-[#6B7280] hover:rounded-lg"
+                    onClick={() => {
+                      setSelectedLanguage("English");
+                      setLanguageMenuOpen(false);
+                    }}
+                  >
+                    English
+                  </button>
+                </div>
+              )}
             </div>
             <button className="text-md">Giriş Yap</button>
           </div>
+
           {/* hamburger menü */}
           <div className="lg:hidden">
             {/* figma'daki hamburger menü ikonu export edilemediği için elle yazdım */}
@@ -130,10 +162,9 @@ export default function Home() {
           <div className="lg:hidden bg-black text-white mt-4 p-4 rounded-lg space-y-4 flex flex-col items-center justify-center fixed top-10 left-0 w-full h-48 z-50">
             <div className="flex items-center space-x-2">
               <img src="/icons/earth.svg" alt="Earth" />
-              <p className="text-md">Türkçe</p>
-              <img src="/icons/down.svg" alt="Down" />
+              <p className="text-lg">{selectedLanguage}</p>
             </div>
-            <button className="text-md w-full">Giriş Yap</button>
+            <button className="text-lg w-full">Giriş Yap</button>
           </div>
         )}
 
