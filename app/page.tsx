@@ -1,8 +1,31 @@
 "use client";
-import { ChevronDown, Earth, Search } from "lucide-react";
+import Box from "@/components/Box";
+import { ArrowRightIcon, ChevronDown, Earth, Search } from "lucide-react";
 import Head from "next/head";
+import { useState } from "react";
 
 export default function Home() {
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  
+  const boxes = [
+    {
+      icon: <ArrowRightIcon className="w-6 h-6" />,
+      title: "Başlarken",
+      description: "Hesap bilgileri, paketleme ve partner programı",
+      date: "13 yazı",
+    },
+    {
+      icon: <ArrowRightIcon className="w-6 h-6" />,
+      title: "Ürün Yönetimi",
+      description: "Ürün ekleme, silme ve yönetme",
+      date: "12 yazı",
+    },
+  ];
+
+  const filteredBoxes = boxes.filter((box) =>
+    box.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div>
       <Head>
@@ -28,7 +51,7 @@ export default function Home() {
             1likte Ekibinden Tavsiyeler ve Yanıtlar
           </p>
         </div>
-        <div className="container mx-auto flex justify-between items-center relative w-full">
+        <div className="container mx-auto flex justify-between items-center relative w-full mb-6">
           <input
             type="text"
             placeholder="Yazılarda arayın..."
@@ -39,6 +62,20 @@ export default function Home() {
           </div>
         </div>
       </header>
+      <main className="container mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredBoxes.map((box, index) => (
+            <Box
+              key={index}
+              icon={box.icon}
+              title={box.title}
+              description={box.description}
+              date={box.date}
+            />
+          ))}
+        </div>
+      </main>
+      <footer></footer>
     </div>
   );
 }
