@@ -2,16 +2,7 @@
 
 import { useState } from "react";
 import Head from "next/head";
-
 import CustomBox from "@/components/CustomBox";
-import {
-  ArrowRightIcon,
-  ChevronDown,
-  CornerUpRight,
-  Earth,
-  Search,
-  Box,
-} from "lucide-react";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -115,9 +106,9 @@ export default function Home() {
           </div>
           <div className="flex items-center justify-center space-x-12">
             <div className="flex items-center justify-center space-x-2">
-              <Earth strokeWidth={1.5} />
+              <img src="/icons/earth.svg" alt="Earth" />
               <p className="text-md">Türkçe</p>
-              <ChevronDown />
+              <img src="/icons/down.svg" alt="Down" />
             </div>
             <button className="text-md">Giriş Yap</button>
           </div>
@@ -134,7 +125,7 @@ export default function Home() {
             className="w-full p-4 pl-12 border-none rounded-[10px] bg-[#414141] text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-gray-600"
           />
           <div className="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6">
-            <Search strokeWidth={1.5} />
+            <img src="/icons/search.svg" alt="Search" />
           </div>
         </div>
       </header>
@@ -151,7 +142,23 @@ export default function Home() {
           ))}
         </div>
       </main>
-      <footer></footer>
+      <footer className="container mx-auto max-w-5xl">
+        <div className="flex items-center justify-center pt-24 pb-12">
+          <img src="/icons/group.svg" alt="logo" />
+          <img src="/icons/birlikte.svg" alt="1likte" />
+        </div>
+        <div className="flex items-center justify-center space-x-5 pb-7">
+          <p className="text-[#6B7280] text-[14px] font-normal">
+            Görüşlerini Bildir
+          </p>
+          <p className="text-[#6B7280] text-[14px] font-normal">Hata Bildir</p>
+        </div>
+        <div className="flex items-center justify-center space-x-5 pb-14 lg:pb-7">
+          <img src="/icons/X.svg" alt="x" />
+          <img src="/icons/Instagram.svg" alt="instagram" />
+          <img src="/icons/LinkedIn.svg" alt="linkedin" />
+        </div>
+      </footer>
     </div>
   );
 }
