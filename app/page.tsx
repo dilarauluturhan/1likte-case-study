@@ -6,6 +6,7 @@ import CustomBox from "@/components/CustomBox";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   const boxes = [
     {
@@ -94,7 +95,7 @@ export default function Home() {
   );
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <Head>
         <title>1likte Eğitim</title>
       </Head>
@@ -104,7 +105,7 @@ export default function Home() {
             <p className="text-2xl font-bold mr-1">1likte </p>
             <p className="text-lg font-thin"> | Eğitim</p>
           </div>
-          <div className="flex items-center justify-center space-x-12">
+          <div className="hidden lg:flex items-center justify-center space-x-12">
             <div className="flex items-center justify-center space-x-2">
               <img src="/icons/earth.svg" alt="Earth" />
               <p className="text-md">Türkçe</p>
@@ -112,7 +113,30 @@ export default function Home() {
             </div>
             <button className="text-md">Giriş Yap</button>
           </div>
+          {/* hamburger menü */}
+          <div className="lg:hidden">
+            {/* figma'daki hamburger menü ikonu export edilemediği için elle yazdım */}
+            <button onClick={() => setMenuOpen(!menuOpen)}>
+              <div className="w-6 h-5 flex flex-col justify-between items-end cursor-pointer">
+                <span className="block w-full h-[3px] bg-white rounded"></span>
+                <span className="block w-3/4 h-[3px] bg-white rounded"></span>
+                <span className="block w-full h-[3px] bg-white rounded"></span>
+              </div>
+            </button>
+          </div>
         </div>
+
+        {menuOpen && (
+          <div className="lg:hidden bg-black text-white mt-4 p-4 rounded-lg space-y-4 flex flex-col items-center justify-center fixed top-10 left-0 w-full h-48 z-50">
+            <div className="flex items-center space-x-2">
+              <img src="/icons/earth.svg" alt="Earth" />
+              <p className="text-md">Türkçe</p>
+              <img src="/icons/down.svg" alt="Down" />
+            </div>
+            <button className="text-md w-full">Giriş Yap</button>
+          </div>
+        )}
+
         <div className="container mx-auto max-w-5xl  flex justify-between items-center">
           <p className="font-medium text-[28px] py-6">
             1likte Ekibinden Tavsiyeler ve Yanıtlar
@@ -122,6 +146,8 @@ export default function Home() {
           <input
             type="text"
             placeholder="Yazılarda arayın..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full p-4 pl-12 border-none rounded-[10px] bg-[#414141] text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-gray-600"
           />
           <div className="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6">
@@ -129,18 +155,24 @@ export default function Home() {
           </div>
         </div>
       </header>
-      <main className="container mx-auto max-w-5xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
-          {filteredBoxes.map((box, index) => (
-            <CustomBox
-              key={index}
-              icon={box.icon}
-              title={box.title}
-              description={box.description}
-              date={box.date}
-            />
-          ))}
-        </div>
+      <main className="container mx-auto max-w-5xl flex-grow">
+        {filteredBoxes.length === 0 ? (
+          <p className="text-center text-2xl text-gray-500 my-32">
+            Aradığınız kategori bulunamamıştır.
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+            {filteredBoxes.map((box, index) => (
+              <CustomBox
+                key={index}
+                icon={box.icon}
+                title={box.title}
+                description={box.description}
+                date={box.date}
+              />
+            ))}
+          </div>
+        )}
       </main>
       <footer className="container mx-auto max-w-5xl">
         <div className="flex items-center justify-center pt-24 pb-12">
