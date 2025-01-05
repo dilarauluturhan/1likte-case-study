@@ -31,5 +31,8 @@ npm run dev
 ````
 Go to `http://localhost:3000` in your project.
 
+## Project Link
+[https://1likte-case-study.vercel.app/](https://1likte-case-study.vercel.app/)
+
 ## Contact With
 Dilara Uluturhan - [LinkedIn](https://www.linkedin.com/in/dilarauluturhan/) - dilarauluturhan@outlook.com
